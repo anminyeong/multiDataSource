@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="15 seconds">
+	
+    <!-- log file path -->
+    <property name="LOG_DIR" value="./logs"/>
+    
+    <!-- log file name -->   
+	<property name="BASE_LOG_NAME" value="baseLogger" />
+	<property name="BASE_LOG_PATH_NAME" value="${LOG_DIR}/${BASE_LOG_NAME}" />
+	<property name="MESSAGESTATION_IF_LOG_NAME" value="messageStationLogger" />
+	<property name="MESSAGESTATION_IF_LOG_PATH_NAME" value="${LOG_DIR}/${MESSAGESTATION_IF_LOG_NAME}" />
+    <property name="REPOSIT_LOG_NAME" value="repositLogger" />
+    <property name="REPOSIT_LOG_PATH_NAME" value="${LOG_DIR}/${REPOSIT_LOG_NAME}" />
+	<property name="JPAQUERY_LOG_NAME" value="jpaqueryLogger" />
+    <property name="JPAQUERY_LOG_PATH_NAME" value="${LOG_DIR}/${JPAQUERY_LOG_NAME}" />
+	
+
+
+	<!-- pattern -->
+    <property name="LOG_PATTERN" value="[%d{yy-MM-dd HH:mm:ss.SSS}] %-5level %-40.40class{0} %35.-35M %4.4L | %msg %ex%n"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${LOG_PATTERN}</Pattern>
+        </layout>
+    </appender>
+    
+    
+    <appender name="base" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${BASE_LOG_PATH_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${BASE_LOG_PATH_NAME}_%d{yyyy-MM-dd}.%i.log</fileNamePattern> <!-- 파일이름 패턴 -->
+			<MinIndex>1</MinIndex>
+        	<MaxIndex>13</MaxIndex>
+		</rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- or whenever th e file size reaches 50MB -->
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        	<charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+            <!-- 파일에 기록할 로그 포맷 -->
+        </encoder>
+    </appender>
+    
+
+    <appender name="messageStation-interface" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${MESSAGESTATION_IF_LOG_PATH_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${MESSAGESTATION_IF_LOG_PATH_NAME}_%d{yyyy-MM-dd}.%i.log</fileNamePattern> <!-- 파일이름 패턴 -->
+			<MinIndex>1</MinIndex>
+        	<MaxIndex>13</MaxIndex>
+		</rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- or whenever th e file size reaches 50MB -->
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        	<charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+            <!-- 파일에 기록할 로그 포맷 -->
+        </encoder>
+    </appender>
+    
+    
+    <appender name="reposit-appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${REPOSIT_LOG_PATH_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${REPOSIT_LOG_PATH_NAME}_%d{yyyy-MM-dd}.%i.log</fileNamePattern> <!-- 파일이름 패턴 -->
+            <MinIndex>1</MinIndex>
+            <MaxIndex>13</MaxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- or whenever th e file size reaches 50MB -->
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+            <!-- 파일에 기록할 로그 포맷 -->
+        </encoder>
+    </appender>
+    
+    
+    <appender name="jpaquery-appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${JPAQUERY_LOG_PATH_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${JPAQUERY_LOG_PATH_NAME}_%d{yyyy-MM-dd}.%i.log</fileNamePattern> <!-- 파일이름 패턴 -->
+            <MinIndex>1</MinIndex>
+            <MaxIndex>13</MaxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <!-- or whenever th e file size reaches 50MB -->
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>UTF-8</charset>
+            <Pattern>${LOG_PATTERN}</Pattern>
+            <!-- 파일에 기록할 로그 포맷 -->
+        </encoder>
+    </appender>
+    
+    
+    
+    
+    <!--<logger name="org.hibernate.type.descriptor.sql.BasicBinder" additivity="false"> 
+		<level value="TRACE"/> 
+		<appender-ref ref="jpaquery-appender"/> 
+	</logger>-->
+	
+	<logger name="org.hibernate.SQL" additivity="false"> 
+		<level value="DEBUG"/> 
+		<appender-ref ref="jpaquery-appender"/> 
+	</logger>
+    
+    <!-- 특정패키지 로깅레벨 설정 -->
+    <logger name="messageStationLogger" level="DEBUG" additivity="false">
+        <appender-ref ref="messageStation-interface"/>
+    </logger>
+    
+    <!-- 특정패키지 로깅레벨 설정 -->
+    <logger name="repositStationLogger" level="DEBUG" additivity="false">
+        <appender-ref ref="reposit-appender"/>
+    </logger>
+
+    <root level="INFO">
+		<appender-ref ref="console"/>	
+	</root>
+
+</configuration>

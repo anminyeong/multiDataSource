@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" version="2.2">
+    
+    <named-native-query name="findAgentInfo">
+        <query>
+        <![CDATA[ 
+            select
+                t.id as id,
+                t.name as name,
+                m.id as aaa,
+                m.name as bbb
+            from team t
+            inner join Member m
+            on t.id = m.team_id
+            where t.name = :name
+            
+            
+            SELECT 
+            FROM 
+            WHERE
+            
+            
+            
+        ]]></query>
+    </named-native-query>
+    
+    
+</entity-mappings>

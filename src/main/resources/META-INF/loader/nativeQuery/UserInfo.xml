@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" version="2.2">
+    
+    <named-native-query name="findUserInfo" result-set-mapping="findUserInfoResult">
+        <query>
+            SELECT u.user_id as userId,
+            u.password as password
+            FROM USER_INFO u
+        </query>
+    </named-native-query>
+    <sql-result-set-mapping name="findUserInfoResult">
+      <constructor-result target-class="com.hwc.isl.loader.dbif.entity.UserInfo">
+        <column name="userId" class="java.lang.String"/>
+        <column name="password" class="java.lang.String"/>
+      </constructor-result>
+    </sql-result-set-mapping>
+    
+    
+    
+</entity-mappings>

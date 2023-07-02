@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "redu.remote.ip",
+    "type": "java.lang.String",
+    "description": "A description for 'redu.remote.ip'"
+  },
+  {
+    "name": "redu.local.port",
+    "type": "java.lang.String",
+    "description": "A description for 'redu.local.port'"
+  },
+  {
+    "name": "redu.remote.port",
+    "type": "java.lang.String",
+    "description": "A description for 'redu.remote.port'"
+  }
+]}
